@@ -3,7 +3,7 @@ $(function() {
   console.log('I\'m here to serve')
 
   // var baseUrl = "http://localhost:3000" // DEV
-  var baseUrl = "https://mighty-journey-5450.herokuapp.com" // PRD
+  var baseUrl = "https://pickup-wdi.herokuapp.com" // PRD
   // DEFINE LINES
   
   $line = _.template( $("#lineTemplate").html() )

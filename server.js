@@ -5,7 +5,10 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/pickup');
+var config = require('./config')
+process.env.FACEBOOK_SECRET || config.FACEBOOK_SECRET
+
+mongoose.connect(process.env.MONGOLAB_URI || config.MONGO_URI);
 var Line = require('./line');
 
 // OPEN THE API TO REQUESTS FROM ANY DOMAIN
