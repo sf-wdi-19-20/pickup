@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pickup Line</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="col-sm-8">
+    <ul id="lines">
+    </ul>
+  </div>
+  <div class="col-sm-4">
+    <h3>Pickup</h3>
+    <div class='well'>
+      <form id="newLine">
+        <div class='form-group'>
+          <label for="title">A New Line</label>
+          <input class="form-control" type="text" name="title" placeholder="Hit me with your best shot"/>
+        </div>
+        <div class='text-right'>
+          <button class="btn btn-primary" type="submit">Good Luck!</button>
+          <br>
+          <small class='text-muted'>You're gonna need it...</small>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script id="lineTemplate" type="text/template">
+    <li class='line'>
+      <p class='lead'><%= text %></p>
+    </li>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
