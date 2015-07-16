@@ -4,7 +4,7 @@ var express = require('express'),
     cors = require('cors'),
     mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/pickup')
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/pickup')
 var Line = require('./line')
 
 // OPEN THE API TO REQUESTS FROM ANY DOMAIN
@@ -26,4 +26,4 @@ app.get('/api/lines', function(req, res) {
   })
 })
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
