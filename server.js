@@ -123,6 +123,7 @@ app.get('/currentuser', function (req, res) {
 
 
 
+
 // LINES#QUERY
 app.get('/api/lines', function(req, res) {
   //console.log(Line);
@@ -142,6 +143,75 @@ app.post('/api/lines', function(req, res) {
   line.save(function(err, line) {
     // once saved, send back the line
     res.json(line);
+  });
+});
+
+// @RELATIONSHIP
+// add an existing line to a user's line list
+// using PUT because we know exactly what the url will be
+app.put('/api/users/:userid/lines/:lineid', function (req, res){
+  // look up the user
+  User.findOne({_id: req.params.userid}, function (err, foundUser){
+    if (foundUser){
+      // look up the line
+      Line.findOne({_id: req.params.lineid}, function(err, foundLineResult){
+        if (foundLine){
+          // have user and line! can add
+          foundUser.lines.push(foundLine);
+          // don't forget to save the user changes to db
+          foundUser.save();
+          // send response for success
+          res.json(foundUser);
+        } else {
+          // didn't find the line
+          res.status(500).send("database error: no line found with id ", req.params.lineid);
+        }
+      });
+    } else {
+      // didn't find the user
+      res.status(500).send("database error: no user found with id ", req.params.userid);
+    }
+  })
+});
+
+
+// @RELATIONSHIP  @AUTHORIZATION (NOT MINIMUM)
+// this time we'll add an existing line to a user's line list
+// ONLY if the userid matches the current user
+// going to mess with the route a little to distinguish from prevoius
+// but in real world would use the same url as simpler version above
+app.put('/api/users/:userid/lines/:lineid/AUTHORIZED', function (req, res){
+  // check if there is a user logged in
+  req.currentUser(function (err, current){
+    if (current && current._id === req.params.userid){
+    // someone is logged in, and it's the same person who's list we're changing
+    // do the same thing as we did above
+      // look up the user
+      User.findOne({_id: req.params.userid}, function (err, foundUser){
+        if (foundUser){
+          // look up the line
+          Line.findOne({_id: req.params.lineid}, function(err, foundLineResult){
+            if (foundLine){
+              // have user and line! can add
+              foundUser.lines.push(foundLine);
+              // don't forget to save the user changes to db
+              foundUser.save();
+              // send response for success
+              res.json(foundUser);
+            } else {
+              // didn't find the line
+              res.status(500).send("database error: no line found with id ", req.params.lineid);
+            }
+          });
+        } else {
+          // didn't find the user
+          res.status(500).send("database error: no user found with id ", req.params.userid);
+        }
+      });
+    } else {
+      // there was no current user
+      res.status(500).send("must be logged in to add line to user");
+    }
   });
 });
 

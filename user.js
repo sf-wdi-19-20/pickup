@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
 
 
 //@AUTH
-
 var bcrypt = require('bcrypt'),
     salt = bcrypt.genSaltSync(10);
 
@@ -14,8 +13,10 @@ var UserSchema = new Schema({
   firstName: String,
   lastName: String,
   avatar: String,
+  // @AUTH requires email and passwordDigest
   email: String,
   passwordDigest: String,
+  // @RELATIONSHIP requires list of data (referenced  or embedded)
   lines: [Line.schema]  // embedded
 });
 
