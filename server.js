@@ -117,11 +117,20 @@ app.get('/currentuser', function (req, res) {
   });
 });
 
+// convenience method for testing in postman
+// get all users and send as json
+app.get('/api/users', function (req, res){
+  User.find({}, function(err, results){
+    res.json(results);
+  });
+});
+
 // once we can tell who current user is:
 // - change the front end based on looking it up
 // - add stuff / delete stuff only if the user is logged in
 
-
+//line id: 55b022552d54e2a9c4502f27
+// user id: 55afd522c4872e629d28466b
 
 
 // LINES#QUERY
@@ -154,7 +163,7 @@ app.put('/api/users/:userid/lines/:lineid', function (req, res){
   User.findOne({_id: req.params.userid}, function (err, foundUser){
     if (foundUser){
       // look up the line
-      Line.findOne({_id: req.params.lineid}, function(err, foundLineResult){
+      Line.findOne({_id: req.params.lineid}, function(err, foundLine){
         if (foundLine){
           // have user and line! can add
           foundUser.lines.push(foundLine);
@@ -183,14 +192,14 @@ app.put('/api/users/:userid/lines/:lineid', function (req, res){
 app.put('/api/users/:userid/lines/:lineid/AUTHORIZED', function (req, res){
   // check if there is a user logged in
   req.currentUser(function (err, current){
-    if (current && current._id === req.params.userid){
+    if (current && current._id == req.params.userid){ // node === doesn't work because types are different
     // someone is logged in, and it's the same person who's list we're changing
     // do the same thing as we did above
       // look up the user
       User.findOne({_id: req.params.userid}, function (err, foundUser){
         if (foundUser){
           // look up the line
-          Line.findOne({_id: req.params.lineid}, function(err, foundLineResult){
+          Line.findOne({_id: req.params.lineid}, function(err, foundLine){
             if (foundLine){
               // have user and line! can add
               foundUser.lines.push(foundLine);
