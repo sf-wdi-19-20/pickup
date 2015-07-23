@@ -9,6 +9,43 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div class="container">
+  <!-- @AUTH -->
+  <h2 id="loggedInMessage">You're Logged In!.... or not?</h2>
+  <button id="logout-btn" type="button" class="btn btn-primary" >Log Out</button>
+
+  <!-- @AUTH -->
+  <h2>Sign up form</h2>
+  <!-- FORM STRUCTURE OPTION 1: METHOD AND ACTION -->
+    <!-- form will submit automatically, post to /api/users -->
+    <!-- creates a req.body.user based on names -->
+    <!-- we're not actually using it as modal -->
+    <form method="post" action="/api/users">
+        <div class="form-group">
+          <input type="email" name="user[email]" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" name="user[password]" class="form-control" placeholder="Password">
+        </div>
+        <input type="submit" value="Sign Up" class="btn btn-primary">
+    </form>
+
+    <h2>Log In Form</h2>
+    <!-- FORM STRUCTURE OPTION 2 - PREFERRED -->
+    <form id="login-form">
+    <!-- form will not submit automatically -->
+        <div class="form-group">
+          <input type="email" id="login-user-email" class="form-control" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" id="login-user-password" class="form-control" placeholder="Password">
+        </div>
+        <input type="submit" value="Log In" class="btn btn-primary">
+
+    </form>
+
+
   <div class="col-sm-8">
     <ul id="lines">
     </ul>
@@ -28,6 +65,7 @@
         </div>
       </form>
     </div>
+  </div>
   </div>
 
   <script id="lineTemplate" type="text/template">
